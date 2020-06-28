@@ -17,12 +17,9 @@
 package org.codehaus.mojo.archetypes.test.rest.jaxrs;
 
 
-
-import org.codehaus.mojo.archetypes.test.GreeterEJB;
 import org.codehaus.mojo.archetypes.test.controller.Greeter;
 import org.codehaus.mojo.archetypes.test.rest.model.Contact;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
