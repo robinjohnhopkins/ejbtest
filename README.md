@@ -43,3 +43,11 @@ Whereby javaee has instantiated Greeter
  ```
 Wherein the war has use of EJB defined in ejb.
         
+
+## jboss-deployment-structure.xml
+
+adding this does not seem to change anything
+
+ear1/src/main/webapp/WEB-INF/jboss-deployment-structure.xml
+
+
