@@ -18,8 +18,12 @@ package org.codehaus.mojo.archetypes.test.rest.jaxrs;
 
 
 
+import org.codehaus.mojo.archetypes.test.GreeterEJB;
+import org.codehaus.mojo.archetypes.test.controller.Greeter;
 import org.codehaus.mojo.archetypes.test.rest.model.Contact;
 
+import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -31,6 +35,9 @@ import java.util.Map;
 public class ContactResourceRESTService {
 
     private static Map<Long, Contact> contactsRepository = new HashMap<>();
+
+    @Inject
+    private Greeter greeter;
 
     /**
      * Creates a new contact from the values provided and will return a JAX-RS response with either 200 ok, or 400 (BAD REQUEST)
@@ -107,6 +114,22 @@ public class ContactResourceRESTService {
         contactsRepository.put(1L, contact);
         return Response.ok(contact).build();
     }
+
+    @GET
+    @Path("/greet")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response greet(final @PathParam("id") Long id) {
+
+        Contact contact = new Contact();
+        contact.setId(1L);
+        greeter.setName("bob" + (id != null ? id.toString() : "meh"));
+        contact.setName(greeter.getMessage());
+        contact.setPhoneNumber("123");
+        contact.setSavedBy("bill");
+        contactsRepository.put(1L, contact);
+        return Response.ok(contact).build();
+    }
+
 
 
     // Fetch a specific contact
