@@ -19,4 +19,12 @@
       <dependencies>
       </dependencies>
    </deployment>
+   <ear-subdeployments-isolated>false</ear-subdeployments-isolated>
+
+   <sub-deployment name="ejb1-1.0-SNAPSHOT.jar">
+
+   </sub-deployment>
+   <sub-deployment name="webapp1-1.0-SNAPSHOT.war">
+
+   </sub-deployment>
 </jboss-deployment-structure>
