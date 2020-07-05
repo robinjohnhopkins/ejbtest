@@ -17,8 +17,10 @@
 package org.codehaus.mojo.archetypes.test.rest.jaxrs;
 
 
+import org.codehaus.mojo.archetypes.test.camel.DistributeOrderDSL;
 import org.codehaus.mojo.archetypes.test.controller.Greeter;
 import org.codehaus.mojo.archetypes.test.rest.model.Contact;
+import org.codehaus.mojo.archetypes.test.rest.model.Status;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -124,8 +126,25 @@ public class ContactResourceRESTService {
         contact.setPhoneNumber("123");
         contact.setSavedBy("bill");
         contactsRepository.put(1L, contact);
+
         return Response.ok(contact).build();
     }
+
+
+    @GET
+    @Path("/camel")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response greet() {
+
+        try {
+            DistributeOrderDSL.camelGo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Status status = new Status("wassup");
+        return Response.ok(status).build();
+    }
+
 
 
 
