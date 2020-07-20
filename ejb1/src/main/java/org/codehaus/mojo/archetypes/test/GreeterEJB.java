@@ -16,6 +16,10 @@
  */
 package org.codehaus.mojo.archetypes.test;
 
+import org.codehaus.mojo.archetypes.test.camel.MyLogBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.ejb.Stateful;
 
 /**
@@ -25,6 +29,11 @@ import javax.ejb.Stateful;
  */
 @Stateful
 public class GreeterEJB {
+    static Logger LOG = LoggerFactory.getLogger(GreeterEJB.class);
+
+    GreeterEJB(){
+        LOG.info("GreeterEJB ctor");
+    }
     /**
      * This method takes a name and returns a personalised greeting.
      *
@@ -33,6 +42,7 @@ public class GreeterEJB {
      * @return the personalised greeting.
      */
     public String sayHello(String name) {
+        LOG.info("GreeterEJB.sayHello " + name);
         return "Hello " + name;
     }
 }

@@ -12,6 +12,7 @@ public class MyLogBean implements Processor {
     }
     public String hello(String name) {
         LOG.info("MyLogBean hello {}", name);
+        System.out.println("MyLogBean " + name);
         return "Hello " + name;
     }
 }

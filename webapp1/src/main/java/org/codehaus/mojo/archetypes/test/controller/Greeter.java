@@ -18,7 +18,11 @@ package org.codehaus.mojo.archetypes.test.controller;
 
 import org.codehaus.mojo.archetypes.test.GreeterEJB;
 import org.codehaus.mojo.archetypes.test.NewSessionBean;
-import javax.ejb.EJB;
+import org.codehaus.mojo.archetypes.test.OperationsSessionBeanRemote;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.ejb.*;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -27,14 +31,26 @@ import java.io.Serializable;
  * A simple managed bean that is used to invoke the GreeterEJB and store the
  * response. The response is obtained by invoking getMessage().
  *
- * @author paul.robinson@redhat.com, 2011-12-21
+ * see https://www.baeldung.com/java-ee-singleton-session-bean
+ *
+ *
  */
 @Named("greeter")
-@SessionScoped
+//@SessionScoped - this one is not created straight away
+@Singleton
+@Startup
+//@DependsOn({"DependentBean1", "DependentBean2"})
+//@ConcurrencyManagement(ConcurrencyManagementType.CONTAINER) DEFAULT see @Lock below
+//@ConcurrencyManagement(ConcurrencyManagementType.BEAN) use synchronized keyword
 public class Greeter implements Serializable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Greeter.class);
 
     /** Default value included to remove warning. **/
     private static final long serialVersionUID = 1L;
+
+    public Greeter(){
+        LOGGER.info("Greeter ctor");
+    }
 
     /**
      * Injected GreeterEJB client
@@ -45,10 +61,28 @@ public class Greeter implements Serializable {
     @EJB
     private NewSessionBean newSessionBean;
 
+    @EJB
+    OperationsSessionBeanRemote operationsSessionBeanRemote;
+
+
     /**
      * Stores the response from the call to greeterEJB.sayHello(...)
      */
     private String message;
+
+
+//    private final Map<String, List<String> countryStatesMap = new HashMap<>();
+//
+//    @Lock(LockType.READ)
+//    public List<String> getStates(String country) {
+//        return countryStatesMap.get(country);
+//    }
+//
+//    @Lock(LockType.WRITE)
+//    public void setStates(String country, List<String> states) {
+//        countryStatesMap.put(country, states);
+//    }
+
 
     /**
      * Invoke greeterEJB.sayHello(...) and store the message
@@ -67,7 +101,8 @@ public class Greeter implements Serializable {
      * @return message. The greeting message.
      */
     public String getMessage() {
-        return message;
+        float sum = operationsSessionBeanRemote.add(1.2F, 2.2F);
+        return message + sum;
     }
 
 }

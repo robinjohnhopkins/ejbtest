@@ -4,6 +4,10 @@
  */
 package org.codehaus.mojo.archetypes.test;
 
+import org.codehaus.mojo.archetypes.test.camel.DistributeOrderDSL;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -14,7 +18,17 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class NewSessionBean {
+    private static final Logger LOGGER = LoggerFactory.getLogger(NewSessionBean.class);
 
+
+    public NewSessionBean(){
+        LOGGER.info("NewSessionBean ctor DistributeOrderDSL");
+        try {
+            DistributeOrderDSL.camelGo();
+        } catch (Exception e) {
+            LOGGER.error("NewSessionBean error camel", e);
+        }
+    }
     public void businessMethod() {
     }
 

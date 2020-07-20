@@ -93,3 +93,5 @@ http://127.0.0.1:8080/webapp1/rest/contacts/greet
 
 ```
 
+http://127.0.0.1:8080/webapp1/rest/contacts/camel
+

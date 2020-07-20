@@ -21,6 +21,8 @@ import org.codehaus.mojo.archetypes.test.camel.DistributeOrderDSL;
 import org.codehaus.mojo.archetypes.test.controller.Greeter;
 import org.codehaus.mojo.archetypes.test.rest.model.Contact;
 import org.codehaus.mojo.archetypes.test.rest.model.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -32,8 +34,19 @@ import java.util.Map;
 
 @Path("/contacts")
 public class ContactResourceRESTService {
+    static Logger LOG = LoggerFactory.getLogger(ContactResourceRESTService.class);
+
 
     private static Map<Long, Contact> contactsRepository = new HashMap<>();
+
+    public ContactResourceRESTService(){
+        LOG.info("ContactResourceRESTService ctor - called multiple times once per rest call");
+//        try {
+//            DistributeOrderDSL.camelGo();
+//        } catch (Exception e) {
+//            LOG.error("camel.go error", e);
+//        }
+    }
 
     @Inject
     private Greeter greeter;

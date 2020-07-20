@@ -29,11 +29,13 @@ public class TimerBeansMain extends Main {
     static class Bean1 implements Processor {
         public void process(Exchange msg) {
             LOG.info("First process {}", msg);
+            System.out.println("First process " + msg.toString());
         }
     }
     static class Bean2 implements Processor {
         public void process(Exchange msg) {
             LOG.info("Second process {}", msg);
+            System.out.println("Second process " + msg.toString());
         }
     }
 }
